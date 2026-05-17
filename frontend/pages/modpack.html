@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HitomiX - Modpack</title>
 </head>
+
 <body>
     <header>
         <h1>Bienvenue chez HitomiX</h1>
@@ -20,8 +22,10 @@
 
     <main>
         <h2>Telecharger le modpack</h2>
-        <p>Clique sur le lien ci-dessous pour telecharger le modpack.</p>
-        <p><a href="http://localhost:3001/modpack">Telecharger le modpack</a></p>
+        <p>Clique sur le bouton ci-dessous pour telecharger le modpack.</p>
+        <p><button id="download-modpack" type="button">Telecharger le modpack</button></p>
+        <p>Un sha256 sera disponible pour verifier l'integrite du fichier telecharge.</p>
+        <p>sha256 : <span id="sha256">Pas encore telecharge.</span></p>
     </main>
 
     <footer>
@@ -34,4 +38,56 @@
         <p>&copy; 2023 HitomiX. Tous droits reserves.</p>
     </footer>
 </body>
+<script>
+    function getFilenameFromDisposition(contentDisposition) {
+        const match = contentDisposition && contentDisposition.match(/filename="?([^"]+)"?/i);
+        return match ? match[1] : "modpack.zip";
+    }
+
+    async function downloadModpack() {
+        const button = document.getElementById("download-modpack");
+        const sha256Element = document.getElementById("sha256");
+
+        button.disabled = true;
+        sha256Element.textContent = "Telechargement en cours...";
+
+        try {
+            const response = await fetch("http://localhost:3001/modpack");
+
+            if (!response.ok) {
+                throw new Error("Le backend a repondu avec une erreur.");
+            }
+
+            const sha256 = response.headers.get("X-Modpack-SHA256");
+            const contentDisposition = response.headers.get("Content-Disposition");
+            const filename = getFilenameFromDisposition(contentDisposition);
+            const blob = await response.blob();
+            const downloadUrl = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+
+            sha256Element.textContent = sha256 || "SHA256 non fourni par le backend.";
+
+            link.href = downloadUrl;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            URL.revokeObjectURL(downloadUrl);
+        } catch (error) {
+            sha256Element.textContent = "Erreur pendant le telechargement.";
+            console.error(error);
+        } finally {
+            button.disabled = false;
+        }
+    }
+
+    window.addEventListener("load", function () {
+        const button = document.getElementById("download-modpack");
+
+        if (button) {
+            button.addEventListener("click", downloadModpack);
+        }
+    });
+</script>
+
 </html>
