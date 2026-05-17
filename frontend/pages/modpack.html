@@ -52,7 +52,7 @@
         sha256Element.textContent = "Telechargement en cours...";
 
         try {
-            const response = await fetch("http://localhost:3001/modpack");
+            const response = await fetch("/modpack");
 
             if (!response.ok) {
                 throw new Error("Le backend a repondu avec une erreur.");

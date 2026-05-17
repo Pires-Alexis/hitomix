@@ -26,5 +26,4 @@ maxThreads = -1
 earlyWindowSquir = false
 #Whether to show CPU usage stats in early window
 earlyWindowShowCPU = false
-#allow or not people with mods
-rejectClientsWithoutMods = false
+
