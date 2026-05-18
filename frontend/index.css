@@ -22,12 +22,12 @@ footer nav img {
     flex: 0 0 24px;
 }
 
-a :link,
-a :visited {
+a:link,
+a:visited {
     text-decoration: none;
     color: rgb(156, 35, 35);
 }
 
-a :hover {
+a:hover {
     text-decoration: underline;
 }
