@@ -38,6 +38,7 @@ async function removeFileIfExists(filePath) {
 app.get("/modpack", modpackLimiter, async (req, res) => {
     try {
         log("Generation du ZIP...");
+        log("Fichier ZIP cible :", OUTPUT_ZIP);
 
         const folders = [
             { name: "mods", path: path.join(DATA_DIR, "data/mods") },
@@ -45,6 +46,8 @@ app.get("/modpack", modpackLimiter, async (req, res) => {
             { name: "defaultconfigs", path: path.join(DATA_DIR, "data/defaultconfigs") },
             { name: "resourcepacks", path: path.join(DATA_DIR, "data/resourcepacks") }
         ];
+
+        log("Dossiers sources :", folders);
 
         await fs.promises.mkdir(OUTPUT_DIR, { recursive: true });
         await removeFileIfExists(OUTPUT_ZIP);
@@ -60,15 +63,15 @@ app.get("/modpack", modpackLimiter, async (req, res) => {
             try {
                 await removeFileIfExists(OUTPUT_ZIP);
             } catch (cleanupError) {
-                error("Erreur pendant la suppression du ZIP :", cleanupError);
+                error("Erreur pendant la suppression du ZIP :", cleanupError?.stack || cleanupError);
             }
 
             if (downloadError) {
-                error("Erreur pendant l'envoi du ZIP :", downloadError);
+                error("Erreur pendant l'envoi du ZIP :", downloadError?.stack || downloadError);
             }
         });
     } catch (err) {
-        error("Erreur :", err);
+        error("Erreur pendant la generation du modpack :", err?.stack || err);
         res.status(500).json({ error: "Erreur lors de la generation du modpack." });
     }
 });
