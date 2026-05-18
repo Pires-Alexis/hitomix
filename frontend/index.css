@@ -4,7 +4,7 @@ footer nav ul {
     margin: 0 0 1rem;
 }
 
-footer nav li + li {
+footer nav li+li {
     margin-top: 0.75rem;
 }
 
@@ -20,4 +20,14 @@ footer nav img {
     height: 24px;
     object-fit: contain;
     flex: 0 0 24px;
+}
+
+a :link,
+a :visited {
+    text-decoration: none;
+    color: brown;
+}
+
+a :hover {
+    text-decoration: underline;
 }
