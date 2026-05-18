@@ -15,7 +15,7 @@ const app = express();
 const PORT = 3001;
 
 const DATA_DIR = "/var/www/hitomix/backend/";
-const OUTPUT_ZIP = path.join(DATA_DIR, "modpack.zip");
+const OUTPUT_ZIP = path.join(DATA_DIR, "/pack/modpack.zip");
 
 const modpackLimiter = rateLimit({
     windowMs: 60 * 1000,
