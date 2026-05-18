@@ -34,7 +34,7 @@ async function removeFileIfExists(filePath) {
     }
 }
 
-app.get("/modpack", modpackLimiter, async (req, res) => {
+app.get("/pack/modpack", modpackLimiter, async (req, res) => {
     try {
         log("Generation du ZIP...");
 
