@@ -25,7 +25,7 @@ footer nav img {
 a :link,
 a :visited {
     text-decoration: none;
-    color: brown;
+    color: rgb(156, 35, 35);
 }
 
 a :hover {
