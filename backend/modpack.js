@@ -54,6 +54,7 @@ app.get("/modpack", modpackLimiter, async (req, res) => {
         log("SHA256 :", signature);
 
         res.setHeader("X-Modpack-SHA256", signature);
+        console.log("here");
         res.download(OUTPUT_ZIP, "modpack.zip", async downloadError => {
             try {
                 await removeFileIfExists(OUTPUT_ZIP);
