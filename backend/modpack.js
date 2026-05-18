@@ -15,7 +15,8 @@ const app = express();
 const PORT = 3001;
 
 const DATA_DIR = "/var/www/hitomix/backend/";
-const OUTPUT_ZIP = path.join(DATA_DIR, "/pack/modpack.zip");
+const OUTPUT_DIR = path.join(DATA_DIR, "pack");
+const OUTPUT_ZIP = path.join(OUTPUT_DIR, "modpack.zip");
 
 const modpackLimiter = rateLimit({
     windowMs: 60 * 1000,
@@ -34,7 +35,7 @@ async function removeFileIfExists(filePath) {
     }
 }
 
-app.get("/pack/modpack", modpackLimiter, async (req, res) => {
+app.get("/modpack", modpackLimiter, async (req, res) => {
     try {
         log("Generation du ZIP...");
 
@@ -45,6 +46,7 @@ app.get("/pack/modpack", modpackLimiter, async (req, res) => {
             { name: "resourcepacks", path: path.join(DATA_DIR, "data/resourcepacks") }
         ];
 
+        await fs.promises.mkdir(OUTPUT_DIR, { recursive: true });
         await removeFileIfExists(OUTPUT_ZIP);
         await createZip(OUTPUT_ZIP, folders);
 
@@ -54,7 +56,6 @@ app.get("/pack/modpack", modpackLimiter, async (req, res) => {
         log("SHA256 :", signature);
 
         res.setHeader("X-Modpack-SHA256", signature);
-        console.log("here");
         res.download(OUTPUT_ZIP, "modpack.zip", async downloadError => {
             try {
                 await removeFileIfExists(OUTPUT_ZIP);
