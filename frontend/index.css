@@ -32,6 +32,7 @@ html {
 }
 
 body {
+    user-select: none;
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -64,11 +65,9 @@ body::after {
     height: 180px;
     pointer-events: none;
     background:
-        repeating-linear-gradient(
-            90deg,
+        repeating-linear-gradient(90deg,
             rgba(85, 55, 25, 0.28) 0 24px,
-            rgba(54, 35, 16, 0.34) 24px 48px
-        );
+            rgba(54, 35, 16, 0.34) 24px 48px);
     opacity: 0.3;
 }
 
@@ -204,26 +203,24 @@ main::before {
     inset: 0;
     pointer-events: none;
     background:
-        repeating-linear-gradient(
-            90deg,
+        repeating-linear-gradient(90deg,
             rgba(255, 255, 255, 0.08) 0 20px,
-            rgba(0, 0, 0, 0.02) 20px 40px
-        );
+            rgba(0, 0, 0, 0.02) 20px 40px);
     opacity: 0.4;
 }
 
-main > * {
+main>* {
     position: relative;
     z-index: 1;
 }
 
-main > p:first-of-type {
+main>p:first-of-type {
     max-width: 64ch;
     color: var(--text-soft);
     font-size: 1.05rem;
 }
 
-section + section {
+section+section {
     margin-top: 1rem;
 }
 
@@ -405,6 +402,7 @@ footer p {
 }
 
 @keyframes pulse-idle {
+
     0%,
     100% {
         filter: brightness(1);
@@ -430,6 +428,7 @@ footer p {
 }
 
 @media (max-width: 720px) {
+
     header,
     main,
     footer {
