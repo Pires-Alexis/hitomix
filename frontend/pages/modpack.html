@@ -65,12 +65,11 @@
         const button = document.getElementById("download-modpack");
         const sha256Element = document.getElementById("sha256");
 
-        // button.disabled = true;
+        button.disabled = true;
         sha256Element.textContent = "Téléchargement en cours...";
 
         try {
             const response = await fetch("/modpack");
-            console.log("Réponse du backend :", response);
             if (!response.ok) {
                 if (response.statusText == "Too Many Requests") {
                     throw new Error("Rate limit"); return
