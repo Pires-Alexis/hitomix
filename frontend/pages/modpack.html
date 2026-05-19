@@ -70,8 +70,9 @@
 
         try {
             const response = await fetch("/modpack");
-
+            console.log("Réponse du backend :", response);
             if (!response.ok) {
+
                 throw new Error("Le backend a répondu avec une erreur.");
             }
 
