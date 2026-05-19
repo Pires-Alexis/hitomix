@@ -96,7 +96,7 @@
             link.remove();
             URL.revokeObjectURL(downloadUrl);
         } catch (error) {
-            console.error("Erreur lors du téléchargement du modpack :", error);
+            console.log("Erreur lors du téléchargement du modpack :", error);
             sha256Element.textContent = "Erreur pendant le téléchargement.";
             console.error(error);
         } finally {
