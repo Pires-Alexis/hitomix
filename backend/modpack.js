@@ -19,18 +19,9 @@ const OUTPUT_DIR = path.join(DATA_DIR, "pack");
 const OUTPUT_ZIP = path.join(OUTPUT_DIR, "modpack.zip");
 
 const modpackLimiter = rateLimit({
-    windowMs: 60 * 1000, //60 secondes * 1000 ms = 1 min
+    windowMs: 60 * 1000,
     max: 5,
-    handler: (req, res) => {
-        res.status(429).json({
-            success: false,
-            error: {
-                code: "RATE_LIMIT",
-                message: "Trop de requêtes",
-                retry_after: 60
-            }
-        });
-    }
+    message: { error: "Rate limit atteint, reessaie dans une minute." }
 });
 
 async function removeFileIfExists(filePath) {
