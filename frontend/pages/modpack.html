@@ -72,6 +72,9 @@
             const response = await fetch("/modpack");
             console.log("Réponse du backend :", response);
             if (!response.ok) {
+                if (response.statusText == "Too Many Requests") {
+                    throw new Error("Rate limit"); return
+                }
                 throw new Error("Le backend a répondu avec une erreur.");
             }
 
