@@ -71,11 +71,6 @@
         try {
             const response = await fetch("/modpack");
             console.log("Réponse du backend :", response);
-            if (response.statusText == "Too Many Requests") {
-                throw new Error("Rate limit atteint, reessaie dans une minute.");
-                sha256Element.textContent = "Vous demandez trop de fois, veuillez attendre et réessayer plus tard.";
-                return;
-            }
             if (!response.ok) {
                 throw new Error("Le backend a répondu avec une erreur.");
             }
@@ -96,8 +91,11 @@
             link.remove();
             URL.revokeObjectURL(downloadUrl);
         } catch (error) {
-            console.log("Erreur lors du téléchargement du modpack :", error);
-            sha256Element.textContent = "Erreur pendant le téléchargement.";
+            if (error.message === "Rate limit") {
+                sha256Element.textContent = "Trop de requêtes. Veuillez réessayer dans une minute.";
+            } else {
+                sha256Element.textContent = "Erreur lors du téléchargement du modpack.";
+            }
             console.error(error);
         } finally {
             button.disabled = false;
