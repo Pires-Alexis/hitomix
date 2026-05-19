@@ -21,6 +21,7 @@ const OUTPUT_ZIP = path.join(OUTPUT_DIR, "modpack.zip");
 const modpackLimiter = rateLimit({
     windowMs: 60 * 1000,
     max: 5,
+    title: { error: "Trop de requetes" },
     message: { error: "Rate limit atteint, reessaie dans une minute." }
 });
 
