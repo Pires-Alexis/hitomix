@@ -26,13 +26,13 @@
         <h2>Rejoindre le serveur Discord</h2>
         <p>Pour rejoindre notre serveur Discord, utilise le lien ci-dessous.</p>
         <div id="discord-widget">
-            <h2>Serveur Discord</h2>
+            <h2 id="discord-name">Serveur Discord</h2>
             <p id="online">Chargement...</p>
 
-            <ul id="members"></ul>
+            <div id="members"></div>
 
             <a id="invite" href="https://discord.gg/Wr8sjJhQAQ" target="_blank" rel="noopener noreferrer">
-                <img src="..    /logo/discord.png" alt="Logo Discord">
+                <img src="../logo/discord.png" alt="Logo Discord">
                 <span>Rejoindre le serveur</span>
             </a>
         </div>
@@ -44,7 +44,7 @@
                 <li>
                     <a href="https://discord.gg/Wr8sjJhQAQ">
                         <img src="/logo/discord.png" alt="Logo Discord">
-                        Serveur Discord
+
                     </a>
                 </li>
                 <li>
@@ -76,9 +76,42 @@
         font-family: sans-serif;
     }
 
+    #discord-widget h2 {
+        margin: 0 0 12px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: 0.02em;
+    }
+
     #members {
-        margin: 10px 0;
-        padding-left: 20px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        isolation: isolate;
+    }
+
+    .stack-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #2c2f33;
+        /* contour propre */
+        margin-left: -16px;
+        /* chevauchement */
+        background: #fff2;
+        object-fit: cover;
+        transition: transform 0.2s;
+        position: relative;
+    }
+
+    .stack-avatar:first-child {
+        margin-left: 0;
+    }
+
+    .stack-avatar:hover {
+        transform: scale(1.15);
+        z-index: 999;
     }
 
     #invite {
@@ -105,6 +138,8 @@
         height: 20px;
         object-fit: contain;
     }
+
+    #discord-widget h2 {}
 </style>
 <script>
     const SERVER_ID = "1504542803345281155";
@@ -112,18 +147,23 @@
     fetch(`https://discord.com/api/guilds/${SERVER_ID}/widget.json`)
         .then(res => res.json())
         .then(data => {
+            console.log(data)
             // Nombre de membres en ligne
             document.getElementById("online").innerText =
                 data.presence_count + " membres en ligne";
-
+            document.getElementById("discord-name").innerText = data.name
             // Liste des membres connectés
             const list = document.getElementById("members");
             list.innerHTML = "";
 
-            data.members.forEach(m => {
-                const li = document.createElement("li");
-                li.textContent = m.username;
-                list.appendChild(li);
+            data.members.forEach((m, i) => {
+                const img = document.createElement("img");
+                img.src = m.avatar_url
+                img.width = 32;
+                img.height = 32;
+                img.className = "stack-avatar";
+
+                document.getElementById("members").appendChild(img);
             });
 
             // Lien d'invitation
