@@ -102,7 +102,7 @@ header {
         inset 4px 4px 0 var(--pixel-border-light),
         inset -4px -4px 0 rgba(87, 54, 23, 0.42),
         var(--panel-shadow);
-    animation: rise-in 520ms steps(8, end);
+    animation: rise-in 420ms ease-out;
 }
 
 h1,
@@ -172,7 +172,7 @@ header nav a {
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 0.03em;
-    transition: transform 160ms steps(3, end), filter 160ms linear, box-shadow 160ms steps(3, end);
+    transition: transform 180ms ease-out, filter 180ms ease-out, box-shadow 180ms ease-out;
 }
 
 header nav a:hover,
@@ -197,7 +197,7 @@ main {
         inset 4px 4px 0 #fff5cf,
         inset -4px -4px 0 rgba(126, 91, 45, 0.35),
         var(--panel-shadow);
-    animation: rise-in 700ms steps(10, end);
+    animation: rise-in 520ms ease-out;
 }
 
 main::before {
@@ -236,7 +236,7 @@ section {
         inset 3px 3px 0 #eef0eb,
         inset -3px -3px 0 rgba(68, 71, 66, 0.34),
         0 6px 0 rgba(56, 58, 55, 0.35);
-    transition: transform 180ms steps(3, end), box-shadow 180ms steps(3, end);
+    transition: transform 180ms ease-out, box-shadow 180ms ease-out;
 }
 
 section:hover {
@@ -280,9 +280,9 @@ button {
         inset -3px -3px 0 rgba(119, 82, 11, 0.35),
         0 7px 0 rgba(119, 82, 11, 0.52);
     transition:
-        transform 160ms steps(3, end),
-        filter 160ms linear,
-        box-shadow 160ms steps(3, end);
+        transform 180ms ease-out,
+        filter 180ms ease-out,
+        box-shadow 180ms ease-out;
     animation: pulse-idle 2.8s steps(10, end) infinite;
 }
 
@@ -340,7 +340,7 @@ footer {
         inset 4px 4px 0 rgba(240, 196, 136, 0.4),
         inset -4px -4px 0 rgba(67, 37, 17, 0.45),
         var(--panel-shadow);
-    animation: rise-in 860ms steps(12, end);
+    animation: rise-in 620ms ease-out;
 }
 
 footer nav ul {
@@ -362,7 +362,7 @@ footer nav a {
         0 4px 0 rgba(56, 58, 55, 0.35);
     color: #2a190c;
     text-decoration: none;
-    transition: transform 160ms steps(3, end), box-shadow 160ms steps(3, end), filter 160ms linear;
+    transition: transform 180ms ease-out, box-shadow 180ms ease-out, filter 180ms ease-out;
 }
 
 footer nav a:hover,
